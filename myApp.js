@@ -10,9 +10,15 @@ console.log("Hello World");
 //})
 require('dotenv').config()
 
+var timemid = function(req, res, next){
+    req.time = new Date().toString();
+    next();
+};
+app.get("/now", timemid, function(req,res){res.send({time: req.time})})
+
+var response = "Hello json";
 app.get("/json", function(req, res) {
-    var response = "Hello json"
-    if (process.env.MESSAGE_STYLE === "upppercase"){
+    if (process.env.MESSAGE_STYLE === "uppercase"){
         response = "Hello json".toUpperCase();
     }else{
         response = "Hello json";
@@ -21,7 +27,6 @@ app.get("/json", function(req, res) {
         "message": response
     });
 });
-
 
 
 
