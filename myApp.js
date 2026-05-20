@@ -16,6 +16,15 @@ var timemid = function(req, res, next){
 };
 app.get("/now", timemid, function(req,res){res.send({time: req.time})})
 
+var bodyParser = require("body-parser");
+app.use (bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.post('/name', function(req, res) {
+var string = req.body.first + " " + req.body.last;
+  res.json({ name: string });
+});
+
 var response = "Hello json";
 app.get("/json", function(req, res) {
     if (process.env.MESSAGE_STYLE === "uppercase"){
@@ -38,7 +47,6 @@ app.get("/name", function(req, res) {
     name: `${firstName} ${lastName}`
   });
 });
-
 
 
 
